@@ -29,7 +29,7 @@ auto_venv() {
             return
         else
             # Recursively search the parent directory for a virtual environment
-            auto_venv "${current_dir%/*}"
+            auto_venv $(dirname "${current_dir}")
         fi
     fi
 }
