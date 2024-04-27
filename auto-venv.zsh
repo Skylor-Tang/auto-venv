@@ -1,34 +1,39 @@
 # Check for the existence of a venv directory and activate the Python virtual environment
 # If a venv or .venv directory is found, activate the corresponding virtual environment
-_check_venv() {
+auto_venv() {
+    local current_dir="${1-${PWD}}"
     local venv_dirs=("venv" ".venv")
+
     for dir in "${venv_dirs[@]}"; do
-        if [ -d "$dir" ]; then
-            source "{$dir}/bin/activate"
-            echo "Activated Python virtual environment: $dir"
+        local local_venv_dir="${current_dir}/${dir}"
+
+        if [ -d "${local_venv_dir}" ]; then
+            source "${local_venv_dir}/bin/activate"
+            echo -e "\e[32mActivated Python virtual environment: ${local_venv_dir}\e[0m"
             return
         fi
     done
-}
 
-_deactivate_venv() {
-    local current_dir="${1-${PWD}}"
-    if [[ -n "$VIRTUAL_ENV" ]] && [[ "${current_dir}" != "${VIRTUAL_ENV%/*}"* ]]; then
-        deactivate
-        echo "Deactivated Python virtual environment: " # TODO
+    if [[ -n "$VIRTUAL_ENV" && "${current_dir}" == "${VIRTUAL_ENV%/*}"* ]]; then
+        return
+    else
+        if [[ "${current_dir}" == "/" || "${current_dir}" == "$HOME"  ]] ; then
+            if [[ -n "$VIRTUAL_ENV" ]]; then
+                echo -e "\e[31mDeactivated Python virtual environment: $VIRTUAL_ENV\e[0m"
+                deactivate
+            fi
+            return
+        else
+            auto_venv "${current_dir%/*}"
+        fi
     fi
 }
 
-_auto_venv() {
-    _deactivate_venv
-    check_venv
-}
-# Change directory and automatically check and activate the Python virtual environment
-# This function will call the check_venv() function after changing the directory
 cd() {
-    # Call the native cd command to change the directory
-    builtin cd "$@"
-
-    # Check and activate the Python virtual environment
-    _auto_venv
+    if [ "$#" -eq 0 ]; then
+        builtin cd
+    else
+        builtin cd "$@"
+    fi
+    auto_venv
 }
