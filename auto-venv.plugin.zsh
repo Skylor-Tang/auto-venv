@@ -1,0 +1,1 @@
+source ${0:A:h}/auto-venv.zsh
