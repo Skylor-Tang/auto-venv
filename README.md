@@ -7,7 +7,7 @@
 Use [zplug](https://github.com/zplug/zplug) to install the plugin:
 
 ```bash
-zplug "Skylor-Tang/auto-venv", use:auto-venv.zsh
+zplug "Skylor-Tang/auto-venv", use:auto-venv.zsh, from:github, at:main
 ```
 
 ## Usage
