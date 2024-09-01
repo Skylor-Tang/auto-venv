@@ -4,11 +4,33 @@
 
 ## Installation
 
+### ZPlug
 Use [zplug](https://github.com/zplug/zplug) to install the plugin:
 
 ```bash
 zplug "Skylor-Tang/auto-venv", use:auto-venv.zsh, from:github, at:main
 ```
+
+### oh-my-zsh
+
+Clone this repository into ``$ZSH_CUSTOM/custom/plugins``:
+
+```bash
+git clone https://github.com/MichaelAquilina/zsh-you-should-use.git $ZSH_CUSTOM/plugins/you-should-use
+```
+
+`$ZSH_CUSTOM` is oh-my-zsh’s customization directory. [Docs](https://github.com/robbyrussell/oh-my-zsh/wiki/Customization/).
+
+Then add `auto-venv` to the `plugins` array in your `.zshrc`:
+
+```bash
+plugins=(
+    # ...
+    auto-venv
+    # ...
+)
+```
+
 
 ## Usage
 
