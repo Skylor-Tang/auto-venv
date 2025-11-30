@@ -10,7 +10,7 @@ auto_venv() {
         # If a virtual environment directory is found, activate it
         if [ -d "${local_venv_dir}" ]; then
             source "${local_venv_dir}/bin/activate"
-            echo -e "\e[32mActivated Python virtual environment: ${local_venv_dir}\e[0m"
+            [ -t 1 ] && echo -e "\e[32mActivated Python virtual environment: ${local_venv_dir}\e[0m"
             return
         fi
     done
@@ -23,7 +23,7 @@ auto_venv() {
         # deactivate the current virtual environment if it exists
         if [[ "${current_dir}" == "/" || "${current_dir}" == "$HOME" ]]; then
             if [[ -n "$VIRTUAL_ENV" ]]; then
-                echo -e "\e[31mDeactivated Python virtual environment: $VIRTUAL_ENV\e[0m"
+                [ -t 1 ] && echo -e "\e[31mDeactivated Python virtual environment: $VIRTUAL_ENV\e[0m"
                 deactivate
             fi
             return
