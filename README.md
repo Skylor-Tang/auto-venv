@@ -4,10 +4,16 @@
 
 ## Installation
 
-Use [zplug](https://github.com/zplug/zplug) to install the plugin:
+With [zplug](https://github.com/zplug/zplug):
 
 ```bash
 zplug "Skylor-Tang/auto-venv", use:auto-venv.zsh, from:github, at:main
+```
+
+With [zpm](https://github.com/zpm-zsh/zpm):
+
+```bash
+zpm load Skylor-Tang/auto-venv
 ```
 
 ## Usage
@@ -15,6 +21,14 @@ zplug "Skylor-Tang/auto-venv", use:auto-venv.zsh, from:github, at:main
 The plugin automatically detects if there is a `venv` or `.venv` directory in the current directory or its parent directories, and activates the corresponding Python virtual environment.
 
 When you change directories, the plugin will automatically detect and activate the virtual environment. If the current directory does not have a virtual environment, but you are currently in an active virtual environment, the plugin will automatically deactivate the current virtual environment.
+
+## Silent Mode
+
+By default, the plugin will print a message when it activates or deactivates a virtual environment. If you want to suppress these messages, you can set the `AUTO_VENV_SILENT` environment variable to `true`:
+
+```bash
+export AUTO_VENV_SILENT=true
+```
 
 ## How it Works
 
